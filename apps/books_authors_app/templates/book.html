@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+        <h1>{{ select_book.title }}</h1>
+        <p>ID: {{ select_book.id}}</p>
+        <div class="row">
+        <p class="col-2">Description:</p><div class="col-4">{{ select_book.desc}}</div>
+        </div>
+        <p>Authors:</p>
+        <ul>
+            {% for i in authors %}
+            <li>{{ i.first_name}} {{i.last_name}}</li>
+            {% endfor %}
+        </ul>
+        <form action="/join" method="POST">
+        {% csrf_token %}
+        <select name="new" id="">
+        {% for j in all_authors %}
+            <option value="{{j.id}}">{{j.first_name}} {{j.last_name}}</option>
+        {% endfor %}
+        </select>
+        <input type="hidden" name="source" value="{{select_book.id}}">
+        <input type="submit" value="Add">
+        </form>
+        <h6><a href="/">Go Back</a></h6>
+    </div>
+</body>
+</html>
